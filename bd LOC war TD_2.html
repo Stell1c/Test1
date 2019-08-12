@@ -1,0 +1,110 @@
+<html>
+<body><title>Snake by Utkarsh Mittal</title>
+<script>
+pl=true
+ c=document.createElement('canvas')
+ c.height=500
+ c.width=500
+ ctx=c.getContext('2d')
+ document.body.appendChild(c);
+ x=-1;y=350;i=3;j=4;x2=60;score=0;c1="blue";c2="green";
+ var a;
+ var total=[[25,125,225,325,425]]
+ var totalc=[[c1,c1,c1,c1,c1]]
+ alert ("The best of dx-ball in a pc.");
+ v=prompt("Please enter the number of rows you want in whole numbers. Remember leaving it blank or entering lesser than 1 and greater than 10 will take 1 or 10 only. Also remember the game will start as soon as you click on 'ok'");
+ v1=prompt("Enter the difficulty in 1,2 or 3")
+ if (v<1){v=1}
+ else if (v>10){v=10}
+ if (v1<1){v1=1}
+ else if (v1>3){v1=3} 
+ function draw(){
+ ctx.fillStyle="black";
+ ctx.fillRect(0,0,500,500)
+ ctx.fillStyle="red";
+ ctx.arc(x+10,y+10,10,0,2*Math.PI);ctx.fill();ctx.beginPath()
+ }
+function r(){
+ var a=Math.round(Math.random()*2+5)/2;
+ return a;
+ }
+function draw2(){
+ var c;
+ m=0;
+ if (v>1){
+ for (c=0;c<v-1;c++){total.push([25,125,225,325,425]);totalc.push([c1,c1,c1,c1,c1])}
+ }
+for (n=0;n<v;n++){
+ for (a=0;a<total[n].length;a++){
+if(v1==3){
+ if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j>0 && totalc[n][a]==c2){total[n].splice(a,1,550);score++;j=-4;}
+ else if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j<0 && totalc[n][a]==c2){total[n].splice(a,1,550);score++;j=4;}
+ else if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j<0){totalc[n].splice(a,1,c2);j=4;y+=2}
+ else if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j>0){totalc[n].splice(a,1,c2);j=-4;y-=2}}
+if(v1==2){
+ if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j>0){total[n].splice(a,1);score++;j=-4;}
+ else if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j<0){total[n].splice(a,1);score++;j=4;}}
+if(v1==1){
+ if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j>0){total[n].splice(a,1);score++;}
+ else if(y>m+30 && y<m+60 && x>total[n][a]-20 && x<total[n][a]+50 && j<0){total[n].splice(a,1);score++;}}
+ ctx.fillStyle=totalc[n][a];
+ ctx.fillRect(total[n][a],m+50,50,10)
+ }
+ m+=35;
+ }
+}
+
+function check(){
+ if(y<0){j=4}
+ if(x>480){i=-Math.abs(i)}
+ else if(x<-1){i=Math.abs(i)}
+ }
+function check2(){
+ if(y>462 && x>x2-19){ if(x<x2+13 && i>0){j=-4;i=-r()}
+ else if(x<x2+13){j=-4;i=i*1.5;j=j+2}
+ else if(x<x2+26){j=-4;i=i*1.4;j=j+1}
+ else if(x<x2+39){j=-4;}
+ else if(x<x2+52){j=-4;i=i*0.66;}
+ else if(x<x2+65){j=-4;i=i*0.66;}
+ else if(x<x2+78){j=-4;}
+ else if(x<x2+91){j=-4;i=i*1.4;j=j+1}
+ else if(x<x2+104 && i<0){j=-4;i=r()}
+ else if(x<x2+104){j=-4;i=i*1.5;j=j+2}
+ }
+var k=Math.abs(i);
+if(i>4.5||i<-4.5){i=4.5*k/i;}
+if((i>-1.98&&i<0)||(i<1.98)&&i>0){i=1.98*k/i;}
+}
+key={}
+function gr(){if(pl){
+ d=Date.now()-otim;
+ if(key.r){x2+=0.4*d;}
+ else if(key.l){x2-=0.4*d;}
+ if(x2>401){x2=401}
+ if(x2<-1){x2=-1}
+ check();
+ check2();
+ draw();
+ draw2();
+ ctx.fillStyle="#FF8010";
+ ctx.fillRect(x2,485,100,6)
+ x+=i+i/20;
+ y+=j+j/20;
+ if(y>482){pl=false;alert ("You lose "+ "Your score=" + score);location.reload()}
+ if(score==v*5){pl=false;alert("You Won");location.reload()};otim=Date.now();
+ }}
+onkeydown=function(e){
+ var z=e.keyIdentifier;
+ if(z=='Right'){key.r=true}
+ else if(z=='Left'){key.l=true} 
+}
+onkeyup=function(e){
+ var z=e.keyIdentifier;
+ if(z=='Right'){key.r=false}
+ else if(z=='Left'){key.l=false} 
+}
+otim=Date.now();
+k=setInterval(function(){gr();},16);
+</script>
+</body>
+</html>

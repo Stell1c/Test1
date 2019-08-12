@@ -1,0 +1,123 @@
+<html>
+<body><title>Snake by Utkarsh Mittal</title>
+<script>
+c=document.createElement('canvas');
+c.height=500;
+c.width=500;
+ctx=c.getContext('2d');
+document.body.appendChild(c);
+ctx.font="72px Arial"
+ctx.strokeText("Credits:-",90,100)
+ctx.font="42px Arial"
+ctx.strokeText("EveryThing Done By:-",40,160)
+ctx.strokeText("Utkarsh Mittal",100,210)
+ctx.fillText("Press Any Key To Start",40,280)
+onkeydown=function(){
+start();
+}
+function start(){
+function dbg(){
+ctx.putImageData(idata,0,0);
+}
+ctx.fillStyle="black";
+ctx.fillRect(0,0,500,500);
+ctx.beginPath();
+for(ik=26;ik<26;i++){
+ctx.moveTo(0,i*20);
+ctx.lineTo(500,i*20);
+ctx.moveTo(i*20,0);
+ctx.lineTo(i*20,500);
+}
+ctx.strokeStyle="white";
+ctx.stroke();
+idata=ctx.getImageData(0,0,500,500);
+ctx.beginPath();
+function cir(c,cx,cy,r){
+ctx.fillStyle=c;
+ctx.arc(cx,cy,r,0,2*Math.PI);
+ctx.fill();
+ctx.beginPath();
+}
+
+function gr(){
+var a=Math.random(),
+b=a*480,
+c=b%20,
+d=(c>10)?b-c+20:b-c,
+e=d+10;
+return e
+}
+function mr(){
+fx=gr();fy=gr();
+}
+
+
+
+function ds(){
+ctx.fillStyle="black";
+ctx.fillRect(0,0,500,500);
+dbg();
+
+if(fx==x[0]&&fy==y[0]){
+x.push(1000);y.push(1000)
+score++;mr();
+}
+for(a=x.length-1;a>0;a--){
+cir("white",x[a],y[a],10);
+if(x[a]==x[0]&&y[a]==y[0]){
+clearInterval(i);
+onkeydown=function(){};
+dbg();
+if(localStorage.bs){
+bs=Math.max(localStorage.bs,score)
+}
+else{
+bs=score;
+}
+localStorage.bs=bs;
+alert("You score:"+score+"\nPersonal Best:"+bs);return;
+}
+x[a]=x[a-1];y[a]=y[a-1];
+cir("red",fx,fy,10);
+cir("blue",x[0],y[0],10)
+}
+
+
+
+if(x[0]>490||x[0]<10||y[0]>490||y[0]<10){
+clearInterval(i);
+x=0;
+;
+
+clearInterval (i);
+onkeydown=function(){};
+dbg();
+if(localStorage.bs){
+bs=Math.max(localStorage.bs,score)
+}
+else{
+bs=score;
+}
+localStorage.bs=bs;
+alert("You score:"+score+"\nPersonal Best:"+bs);return;
+}
+}
+x=[250,250,230];y=[250,250,250];mr();score=0;dir="hor";
+i=setInterval(function(){x[0]+=20;ds()},100);
+
+onkeydown=function(e){
+var z=e.keyIdentifier;
+if(dir=="hor"){
+if(z=="Up"){clearInterval(i);i=setInterval(function(){y[0]-=20;ds();dir="ver"},100)}
+else if(z=="Down"){clearInterval(i);i=setInterval(function(){y[0]+=20;ds();dir="ver"},100)}
+}
+else{
+if(z=="Right"){clearInterval(i);i=setInterval(function(){x[0]+=20;ds();dir="hor"},100)}
+else if(z=="Left"){clearInterval(i);i=setInterval(function(){x[0]-=20;ds();dir="hor"},100)}
+}
+}
+}
+
+</script>
+</body>
+</html>
